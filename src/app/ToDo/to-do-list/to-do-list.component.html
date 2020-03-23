@@ -1,0 +1,35 @@
+<div class="container p-3 text-center">
+  <h1>To Do NgRx App</h1>
+  <div class="form-group mt-3">
+    <div class="input-group">
+      <input
+        class="form-control mr-2"
+        placeholder="Enter To Do"
+        [formControl]="newToDo"
+        type="text"
+      />
+      <button class="btn btn-info" [disabled]="newToDo.invalid" (click)="addToDo()">Add</button>
+    </div>
+
+  </div>
+
+  <div *ngFor="let todo of toDos | async" class="d-flex py-3 to-do-list-item">
+    <input
+      #toDoStatus
+      class="form-control mr-2"
+      [checked]="todo.isCompleted"
+      type="checkbox"
+      (click)="updateToDo(todo, toDoTitle.value, toDoStatus.checked)"
+    />
+    <input
+      #toDoTitle
+      class="form-control mr-2"
+      [value]="todo.title"
+      type="text"
+    />
+    <button class="btn btn-secondary mr-2" (click)="updateToDo(todo, toDoTitle.value, toDoStatus.checked)">Update</button>
+    <button class="btn btn-danger" (click)="removeToDo(todo.id)">Remove</button>
+  </div>
+
+</div>
+
